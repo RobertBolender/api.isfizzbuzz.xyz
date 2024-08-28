@@ -1,55 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" color-mode="user">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>api.isfizzbuzz.xyz</title>
-    <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
-    >
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css"> 
 </head>
 <body>
-    <h1>Welcome to the isFizzBuzz API!</h1>
-    
-    <p>
-        This is a simple API that checks if a number is a multiple of 3, 5, or both.
-    </p>
+    <main>
+        <h1>Welcome to the isFizzBuzz API!</h1>
+        
+        <p>
+            This is a simple API that checks if a number is a multiple of 3, 5, or both.
+        </p>
 
-    <h2>Usage</h2>
+        <h2>Usage</h2>
 
-    <p>
-        To use the API, make a GET request to <code>https://api.isfizzbuzz.xyz/api/{number}</code> with the URL parameter <code>number</code> that is the number you want to check.
-    </p>
+        <p>
+            To use the API, make a GET request to <code>https://api.isfizzbuzz.xyz/api/{number}</code> with the URL parameter <code>number</code> that is the number you want to check.
+        </p>
 
-    <p>
-        Upon a successful request, the API will return a JSON response with the following structure:
-    </p>
+        <p>
+            Upon a successful request, the API will return a JSON response with the following structure:
+        </p>
 
-    <code>
-    {
-        "message": "Fizz",
-        "details": "9 is a divisible by 3",
-    }
-    </code>
+<pre><samp>{
+    "message": "Fizz",
+    "details": "9 is a divisible by 3",
+}
+</samp></pre>
 
-    <p>
-        The API will return a 400 status code if the <code>number</code> parameter is not a valid number.
-    </p>
+        <p>
+            The API will return a 400 status code if the <code>number</code> parameter is not a valid number.
+        </p>
 
-    <h2>Alternative Usage</h2>
+        <h2>Alternative Usage</h2>
 
-    These alternative API routes are also available:
+        These alternative API routes are also available:
 
-    <ul>
-        <li><code>GET https://api.isfizzbuzz.xyz/api/fizz/{number}</code></li>
-        <li><code>GET https://api.isfizzbuzz.xyz/api/buzz/{number}</code></li>
-        <li><code>GET https://api.isfizzbuzz.xyz/api/fizzbuzz/{number}</code></li>
-    </ul>
+<pre><code>GET https://api.isfizzbuzz.xyz/api/fizz/{number}
+GET https://api.isfizzbuzz.xyz/api/buzz/{number}
+GET https://api.isfizzbuzz.xyz/api/fizzbuzz/{number}
+</code></pre>
 
-    <p>
-        These routes will return a 200 status code with a single boolean value upon a successful request.
-    </p>
-
+        <p>
+            These routes will return a 200 status code with a single boolean value upon a successful request.
+        </p>
+    </main>
 </body>
 </html>
