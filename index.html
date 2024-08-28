@@ -19,15 +19,33 @@
     </p>
 
     <p>
-        The API will return a JSON response with the following structure:
+        Upon a successful request, the API will return a JSON response with the following structure:
     </p>
 
     <code>
     {
         "message": "Fizz",
-        "details": "The number 9 is a divisible by 3.",
+        "details": "9 is a divisible by 3",
     }
     </code>
+
+    <p>
+        The API will return a 400 status code if the <code>number</code> parameter is not a valid number.
+    </p>
+
+    <h2>Alternative Usage</h2>
+
+    These alternative API routes are also available:
+
+    <code>
+        GET https://api.isfizzbuzz.xyz/api/fizz/{number}
+        GET https://api.isfizzbuzz.xyz/api/buzz/{number}
+        GET https://api.isfizzbuzz.xyz/api/fizzbuzz/{number}
+    </code>
+
+    <p>
+        These routes will return a 200 status code with a single boolean value upon a successful request.
+    </p>
 
 </body>
 </html>

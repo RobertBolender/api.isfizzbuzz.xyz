@@ -33,7 +33,7 @@ func main() {
 		}
 	})
 
-	http.HandleFunc("GET /api/isFizz/{number}", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("GET /api/fizz/{number}", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		encoder := json.NewEncoder(w)
 		encoder.SetIndent("", "  ")
@@ -51,7 +51,7 @@ func main() {
 		}
 	})
 
-	http.HandleFunc("GET /api/isBuzz/{number}", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("GET /api/buzz/{number}", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		encoder := json.NewEncoder(w)
 		encoder.SetIndent("", "  ")
@@ -69,7 +69,7 @@ func main() {
 		}
 	})
 
-	http.HandleFunc("GET /api/isFizzBuzz/{number}", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("GET /api/fizzbuzz/{number}", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		encoder := json.NewEncoder(w)
 		encoder.SetIndent("", "  ")
