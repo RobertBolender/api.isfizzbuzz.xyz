@@ -13,16 +13,19 @@ import (
 //go:embed index.html
 var indexHTML string
 
+var ErrorNumberTooLarge = errors.New("number too large")
+var ErrorNumberInvalid = errors.New("invalid number")
+
 func main() {
 	http.HandleFunc("GET /api/{number}", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		encoder := json.NewEncoder(w)
 		encoder.SetIndent("", "  ")
 
-		number := r.PathValue("number")
-		n, err := strconv.Atoi(number)
+		n, err := getNumber(r)
 		if err != nil {
-			http.Error(w, "Invalid number", http.StatusBadRequest)
+			response := getErrorResponse(err)
+			http.Error(w, response.Error, response.StatusCode)
 			return
 		}
 
@@ -39,10 +42,10 @@ func main() {
 		encoder := json.NewEncoder(w)
 		encoder.SetIndent("", "  ")
 
-		number := r.PathValue("number")
-		n, err := strconv.Atoi(number)
+		n, err := getNumber(r)
 		if err != nil {
-			http.Error(w, "Invalid number", http.StatusBadRequest)
+			response := getErrorResponse(err)
+			http.Error(w, response.Error, response.StatusCode)
 			return
 		}
 
@@ -57,10 +60,10 @@ func main() {
 		encoder := json.NewEncoder(w)
 		encoder.SetIndent("", "  ")
 
-		number := r.PathValue("number")
-		n, err := strconv.Atoi(number)
+		n, err := getNumber(r)
 		if err != nil {
-			http.Error(w, "Invalid number", http.StatusBadRequest)
+			response := getErrorResponse(err)
+			http.Error(w, response.Error, response.StatusCode)
 			return
 		}
 
@@ -75,10 +78,10 @@ func main() {
 		encoder := json.NewEncoder(w)
 		encoder.SetIndent("", "  ")
 
-		number := r.PathValue("number")
-		n, err := strconv.Atoi(number)
+		n, err := getNumber(r)
 		if err != nil {
-			http.Error(w, "Invalid number", http.StatusBadRequest)
+			response := getErrorResponse(err)
+			http.Error(w, response.Error, response.StatusCode)
 			return
 		}
 
@@ -99,6 +102,51 @@ func main() {
 		log.Println("Server closed")
 	} else if err != nil {
 		log.Fatalf("Error starting server: %v", err)
+	}
+}
+
+func getNumber(r *http.Request) (int, error) {
+	num := r.PathValue("number")
+	// iterate over string for non-numeric characters
+	for _, c := range num {
+		if c < '0' || c > '7' {
+			return 0, ErrorNumberInvalid
+		}
+	}
+
+	if len(num) > 7 {
+		return 0, ErrorNumberTooLarge
+	}
+
+	n, err := strconv.Atoi(num)
+	if err != nil {
+		return 0, ErrorNumberInvalid
+	}
+
+	return n, nil
+}
+
+type errorResponse struct {
+	Error      string `json:"error"`
+	StatusCode int    `json:"status_code"`
+}
+
+func getErrorResponse(err error) errorResponse {
+	if errors.Is(err, ErrorNumberInvalid) {
+		return errorResponse{
+			Error:      "Invalid number. Please upgrade to a paid plan to use imaginary, non-real, or non-numeric numbers.",
+			StatusCode: http.StatusBadRequest,
+		}
+	} else if errors.Is(err, ErrorNumberTooLarge) {
+		return errorResponse{
+			Error:      "Free tier is limited to 7 digits. Please upgrade to a paid plan to use larger numbers.",
+			StatusCode: http.StatusPaymentRequired,
+		}
+	} else {
+		return errorResponse{
+			Error:      "Internal server error",
+			StatusCode: http.StatusInternalServerError,
+		}
 	}
 }
 
