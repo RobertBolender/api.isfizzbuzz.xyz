@@ -3,3 +3,6 @@ build:
 
 serve:
     ./bin/api
+
+deploy:
+    git push dokku main
