@@ -7,3 +7,6 @@ serve:
 
 deploy:
     git push dokku main
+
+test:
+    hurl --test test.hurl
