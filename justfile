@@ -2,6 +2,7 @@ build:
     go build -o bin/api .
 
 serve:
+    just build
     ./bin/api
 
 deploy:
