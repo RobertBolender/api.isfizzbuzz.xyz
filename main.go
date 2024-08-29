@@ -25,7 +25,11 @@ func main() {
 		n, err := getNumber(r)
 		if err != nil {
 			response := getErrorResponse(err)
-			http.Error(w, response.Error, response.StatusCode)
+			w.WriteHeader(response.StatusCode)
+			if err := encoder.Encode(response); err != nil {
+				log.Printf("Error encoding JSON: %v", err)
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+			}
 			return
 		}
 
@@ -45,7 +49,11 @@ func main() {
 		n, err := getNumber(r)
 		if err != nil {
 			response := getErrorResponse(err)
-			http.Error(w, response.Error, response.StatusCode)
+			w.WriteHeader(response.StatusCode)
+			if err := encoder.Encode(response); err != nil {
+				log.Printf("Error encoding JSON: %v", err)
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+			}
 			return
 		}
 
@@ -63,7 +71,11 @@ func main() {
 		n, err := getNumber(r)
 		if err != nil {
 			response := getErrorResponse(err)
-			http.Error(w, response.Error, response.StatusCode)
+			w.WriteHeader(response.StatusCode)
+			if err := encoder.Encode(response); err != nil {
+				log.Printf("Error encoding JSON: %v", err)
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+			}
 			return
 		}
 
@@ -81,7 +93,11 @@ func main() {
 		n, err := getNumber(r)
 		if err != nil {
 			response := getErrorResponse(err)
-			http.Error(w, response.Error, response.StatusCode)
+			w.WriteHeader(response.StatusCode)
+			if err := encoder.Encode(response); err != nil {
+				log.Printf("Error encoding JSON: %v", err)
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+			}
 			return
 		}
 

@@ -26,9 +26,9 @@ jsonpath "$.message" == "FizzBuzz"
 GET http://localhost:8080/api/15151515
 HTTP 402
 [Asserts]
-body contains "Please upgrade to a paid plan"
+jsonpath "$.error" contains "Please upgrade to a paid plan"
 
 GET http://localhost:8080/api/e=mc2
 HTTP 400
 [Asserts]
-body contains "Invalid number"
+jsonpath "$.error" contains "Invalid number"
