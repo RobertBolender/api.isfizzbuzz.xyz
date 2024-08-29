@@ -31,8 +31,14 @@
 </samp></pre>
 
         <p>
-            The API will return a 400 status code if the <code>number</code> parameter is not a valid number.
+            If the request is not successful, the API will return a status code in the 4xx or 5xx range with a JSON response with the following structure:
         </p>
+
+<pre><samp>{
+    "error": "Invalid number. Please upgrade to a paid plan to use imaginary, non-real, or non-numeric numbers.",
+    "status_code": 400,
+}
+</samp></pre>
 
         <h2>Alternative Usage</h2>
 
