@@ -125,7 +125,7 @@ func getNumber(r *http.Request) (int, error) {
 	num := r.PathValue("number")
 	// iterate over string for non-numeric characters
 	for _, c := range num {
-		if c < '0' || c > '7' {
+		if c < '0' || c > '9' {
 			return 0, ErrorNumberInvalid
 		}
 	}

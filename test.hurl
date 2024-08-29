@@ -13,6 +13,16 @@ HTTP 200
 [Asserts]
 jsonpath "$.message" == "Buzz"
 
+GET http://localhost:8080/api/8
+HTTP 200
+[Asserts]
+jsonpath "$.message" == "8"
+
+GET http://localhost:8080/api/9
+HTTP 200
+[Asserts]
+jsonpath "$.message" == "Fizz"
+
 GET http://localhost:8080/api/15
 HTTP 200
 [Asserts]
