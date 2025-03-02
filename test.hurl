@@ -42,3 +42,28 @@ GET http://localhost:8080/api/e=mc2
 HTTP 400
 [Asserts]
 jsonpath "$.error" contains "Invalid number"
+
+GET http://localhost:8080/api/prime/2
+HTTP 200
+[Asserts]
+jsonpath "$.is_prime" == true
+
+GET http://localhost:8080/api/prime/4
+HTTP 200
+[Asserts]
+jsonpath "$.is_prime" == false
+
+GET http://localhost:8080/api/prime/17
+HTTP 200
+[Asserts]
+jsonpath "$.is_prime" == true
+
+GET http://localhost:8080/api/prime/18
+HTTP 200
+[Asserts]
+jsonpath "$.is_prime" == false
+
+GET http://localhost:8080/api/prime/abc
+HTTP 400
+[Asserts]
+jsonpath "$.error" contains "Invalid number"

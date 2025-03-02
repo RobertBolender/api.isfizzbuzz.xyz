@@ -107,6 +107,28 @@ func main() {
 		}
 	})
 
+	http.HandleFunc("GET /api/prime/{number}", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		encoder := json.NewEncoder(w)
+		encoder.SetIndent("", "  ")
+
+		n, err := getNumber(r)
+		if err != nil {
+			response := getErrorResponse(err)
+			w.WriteHeader(response.StatusCode)
+			if err := encoder.Encode(response); err != nil {
+				log.Printf("Error encoding JSON: %v", err)
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+			}
+			return
+		}
+
+		if err := encoder.Encode(isPrime(n)); err != nil {
+			log.Printf("Error encoding JSON: %v", err)
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+	})
+
 	http.HandleFunc("GET /", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/html")
 		fmt.Fprint(w, indexHTML)
@@ -176,6 +198,18 @@ func isFizz(n int) bool {
 
 func isBuzz(n int) bool {
 	return n%5 == 0
+}
+
+func isPrime(n int) bool {
+	if n <= 1 {
+		return false
+	}
+	for i := 2; i*i <= n; i++ {
+		if n%i == 0 {
+			return false
+			}
+		}
+	return true
 }
 
 type fizzBuzzResponse struct {
