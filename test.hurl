@@ -1,3 +1,4 @@
+# Tests for /api/{number} route
 GET http://localhost:8080/api/1
 HTTP 200
 [Asserts]
@@ -38,11 +39,75 @@ HTTP 402
 [Asserts]
 jsonpath "$.error" contains "Please upgrade to a paid plan"
 
-GET http://localhost:8080/api/e=mc2
+GET http://localhost:8080/api/e%3Dmc2
 HTTP 400
 [Asserts]
 jsonpath "$.error" contains "Invalid number"
 
+# Tests for /api/fizz/{number} route
+GET http://localhost:8080/api/fizz/3
+HTTP 200
+[Asserts]
+jsonpath "$" == true
+
+GET http://localhost:8080/api/fizz/5
+HTTP 200
+[Asserts]
+jsonpath "$" == false
+
+GET http://localhost:8080/api/fizz/9
+HTTP 200
+[Asserts]
+jsonpath "$" == true
+
+GET http://localhost:8080/api/fizz/10
+HTTP 200
+[Asserts]
+jsonpath "$" == false
+
+# Tests for /api/buzz/{number} route
+GET http://localhost:8080/api/buzz/3
+HTTP 200
+[Asserts]
+jsonpath "$" == false
+
+GET http://localhost:8080/api/buzz/5
+HTTP 200
+[Asserts]
+jsonpath "$" == true
+
+GET http://localhost:8080/api/buzz/9
+HTTP 200
+[Asserts]
+jsonpath "$" == false
+
+GET http://localhost:8080/api/buzz/10
+HTTP 200
+[Asserts]
+jsonpath "$" == true
+
+# Tests for /api/fizzbuzz/{number} route
+GET http://localhost:8080/api/fizzbuzz/3
+HTTP 200
+[Asserts]
+jsonpath "$" == false
+
+GET http://localhost:8080/api/fizzbuzz/5
+HTTP 200
+[Asserts]
+jsonpath "$" == false
+
+GET http://localhost:8080/api/fizzbuzz/15
+HTTP 200
+[Asserts]
+jsonpath "$" == true
+
+GET http://localhost:8080/api/fizzbuzz/30
+HTTP 200
+[Asserts]
+jsonpath "$" == true
+
+# Tests for /api/prime/{number} route
 GET http://localhost:8080/api/prime/1
 HTTP 200
 [Asserts]
@@ -118,7 +183,7 @@ HTTP 402
 [Asserts]
 jsonpath "$.error" contains "Please upgrade to a paid plan"
 
-GET http://localhost:8080/api/prime/e=mc2
+GET http://localhost:8080/api/prime/e%3Dmc2
 HTTP 400
 [Asserts]
 jsonpath "$.error" contains "Invalid number"
